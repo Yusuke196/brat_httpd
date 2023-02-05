@@ -13,6 +13,9 @@ ARG password
 ARG email
 RUN bash ./install_brat.sh $username $password $email
 
-COPY ./httpd.conf /usr/local/apache2/conf/
+COPY config/add_users.py .
+COPY config/users.json .
+RUN python add_users.py config.py users.json
+COPY config/httpd.conf /usr/local/apache2/conf/
 
 EXPOSE 80
