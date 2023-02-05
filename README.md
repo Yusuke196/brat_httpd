@@ -22,4 +22,4 @@ sudo docker build -t brat-httpd --build-arg username=user --build-arg password=p
 sudo docker run --rm --name brat -p 80:80 -d --privileged brat-httpd
 ```
 
-2. Access `http://<public ipv4 address>/brat`
+2. Access `http://<ip address>/brat`
