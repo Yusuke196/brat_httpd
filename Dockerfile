@@ -1,5 +1,9 @@
 FROM httpd:2.4
-RUN apt-get update && apt-get install -y wget python apache2
+RUN apt-get update && apt-get install -y \
+  wget \
+  vim \
+  python \
+  apache2
 
 WORKDIR /usr/local/apache2/htdocs/
 RUN wget https://github.com/nlplab/brat/archive/refs/tags/v1.3_Crunchy_Frog.tar.gz -O - | tar xzf -
