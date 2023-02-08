@@ -4,17 +4,16 @@ This is a repository to run brat using a docker image based on httpd:2.4.
 
 ### On a local environment
 
-1. Build an image and a container, and run the container
+1. Run the brat container (if there is not the image or the container, they are set up beforehand)
 ```
-docker build -t brat-httpd --build-arg username=user --build-arg password=password --build-arg email=example@mail.com .
-docker run --rm --name brat -p 80:80 brat-httpd
+docker-compose up -d
 ```
 
 2. Access `http://localhost/brat`
 
 ### On an EC2 instance
 
-1. Build an image and a container, and run the container
+1. Run the brat container
 ```
 sudo docker build -t brat-httpd --build-arg username=<username> --build-arg password=<password> --build-arg email=<email> .
 # By adding `-d`, the container keeps running in the background
