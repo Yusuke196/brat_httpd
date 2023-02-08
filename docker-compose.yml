@@ -9,7 +9,9 @@ services:
         - password=password
         - email=example@mail.com
     volumes:
-      - data:/usr/local/apache2/htdocs/brat/data
+      - type: bind
+        source: ./data
+        target: /usr/local/apache2/htdocs/brat/data
     ports:
       - 80:80
 volumes:
