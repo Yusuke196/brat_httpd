@@ -7,7 +7,7 @@ def main(args):
     with open(args.config, 'r') as file:
         config = file.read()
 
-    user_json = json.load(open(args.json, 'r'))
+    user_json = json.load(open(args.user_file, 'r'))
 
     user_str = '%s,' % ',\n'.join(
         ["'{}': '{}'".format(u, p) for u, p in user_json.items()]
@@ -26,7 +26,7 @@ def main(args):
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('config')
-    parser.add_argument('json')
+    parser.add_argument('user_file')
     args = parser.parse_args()
     return args
 
