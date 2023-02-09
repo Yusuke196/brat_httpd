@@ -13,7 +13,6 @@ docker-compose up -d
 ```
 docker exec brat bash -c "chgrp -R daemon data && chmod -R g+rwx data"
 ```
-docker exec brat bash -c "chgrp -R daemon data && chmod -R g+rwx data"
 
 3. Access `http://localhost/brat`
 
@@ -38,17 +37,6 @@ docker ps
 Enter the running brat container
 ```
 docker exec -it brat bash
-```
-
-Copy data from the host machine to the container
-(This is automatically done when you build a new docker container)
-```
-docker cp data brat:/usr/local/apache2/htdocs/brat/
-```
-
-Copy annotated data from the container to the host machine (example)
-```
-docker cp brat:/usr/local/apache2/htdocs/brat/data/wmt22 annotation
 ```
 
 Stop the brat container
