@@ -27,7 +27,7 @@ def main(args):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    # parser.add_argument('config')
+    parser.add_argument('config')
     parser.add_argument('user_file')
     args = parser.parse_args()
     return args
