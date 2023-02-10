@@ -14,5 +14,6 @@ services:
         target: /usr/local/apache2/htdocs/brat/data
     ports:
       - 80:80
+    privileged: true
 volumes:
   data:
