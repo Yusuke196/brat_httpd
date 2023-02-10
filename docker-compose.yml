@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  app:
+    container_name: brat
+    build:
+      context: .
+      args:
+        - username=user
+        - password=password
+        - email=example@mail.com
+    volumes:
+      - type: bind
+        source: ./data
+        target: /usr/local/apache2/htdocs/brat/data
+    ports:
+      - 80:80
+volumes:
+  data:
