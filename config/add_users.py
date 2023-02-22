@@ -4,10 +4,12 @@ import re
 
 
 def main(args):
+    user_json = json.load(open(args.user_file, 'r'))
+    if len(user_json) == 0:
+        return
+
     with open(args.config, 'r') as file:
         config = file.read()
-
-    user_json = json.load(open(args.user_file, 'r'))
 
     user_str = '%s,' % ',\n'.join(
         ["'{}': '{}'".format(u, p) for u, p in user_json.items()]
