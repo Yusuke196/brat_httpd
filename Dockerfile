@@ -16,7 +16,8 @@ ARG password
 ARG email
 RUN bash ./install_brat.sh $username $password $email
 
-COPY config/httpd.conf /usr/local/apache2/conf/
+COPY config/additional.conf /usr/local/apache2/conf/
+RUN cat /usr/local/apache2/conf/additional.conf >> /usr/local/apache2/conf/httpd.conf
 
 COPY config/add_users.py .
 COPY config/users.json .
