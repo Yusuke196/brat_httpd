@@ -30,4 +30,8 @@ RUN python modify_tools.py
 RUN chgrp -R $(./apache-group.sh) work
 RUN chmod -R g+rwx work
 
+WORKDIR /usr/local/apache2/htdocs/
+COPY config/add_site.sh .
+RUN sh ./add_site.sh apple
+
 EXPOSE 80
