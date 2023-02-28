@@ -8,6 +8,8 @@ fi
 
 cp -ra brat brat-$NAME
 
+python add_users.py config.py users.json --site_suffix $NAME
+
 echo "
 <Directory \"/usr/local/apache2/htdocs/brat-$NAME\">
     AllowOverride Options Indexes FileInfo Limit

@@ -23,17 +23,19 @@ docker exec brat bash -c "chgrp -R daemon data && chmod -R g+rwx data"
 bash install_docker.sh
 ```
 
-2. Modify username, password, and email on `docker-compose.yml`.
+2. Modify username, password, and email on `docker-compose.yml`. They will be used for the master account.
 
-3. Add `users.json` in `config` directory to specify additional users. An example of users.json is shown below.
+3. Add `users.json` in `config` directory to specify additional users. An example of users.json:
 ```
 {
-  "user_1": "password_1",
-  "user_2": "password_2"
+  "site_suffix_1": {
+    "user_1": "password_1",
+    "user_2": "password_2"
+  }
 }
 ```
 
-4. Build the brat image, giving information of the first account as the arguments. The account information can be specified also in `docker-compose.yml`.
+4. Build the brat image, providing information of the first account as the arguments. The account information can be specified also in `docker-compose.yml`.
 ```
 sudo docker compose build --build-arg username=<username> --build-arg password=<password> --build-arg email=<email>
 ```
