@@ -13,8 +13,8 @@ services:
         source: ./data
         target: /usr/local/apache2/htdocs/brat/data
       # - type: bind
-      #   source: ./data-apple
-      #   target: /usr/local/apache2/htdocs/brat-apple/data
+      #   source: ./data-a
+      #   target: /usr/local/apache2/htdocs/brat-a/data
     ports:
       - 80:80
 volumes:

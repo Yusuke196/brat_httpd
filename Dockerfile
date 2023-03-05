@@ -31,6 +31,6 @@ COPY config/add_site.sh .
 RUN python add_users.py config.py users.json
 
 # Set up configs for additional sites. The argument will be the suffix of the site
-# RUN sh ./add_site.sh apple
+# RUN sh ./add_site.sh a
 
 EXPOSE 80
