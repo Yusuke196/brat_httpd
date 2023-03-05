@@ -22,15 +22,15 @@ COPY config/modify_tools.py .
 RUN python modify_tools.py
 # Note: data directory will be mounted by specification in docker-compose.yml
 # after build operation, so its permission cannot be changed here
-RUN chgrp -R $(./apache-group.sh) work
-RUN chmod -R g+rwx work
+RUN chgrp -R $(./apache-group.sh) work && chmod -R g+rwx work
 
 WORKDIR /usr/local/apache2/htdocs/
 COPY config/add_users.py .
 COPY config/users.json .
 COPY config/add_site.sh .
+RUN python add_users.py config.py users.json
 
 # Set up configs for additional sites. The argument will be the suffix of the site
-RUN sh ./add_site.sh apple
+# RUN sh ./add_site.sh apple
 
 EXPOSE 80

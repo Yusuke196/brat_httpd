@@ -1,20 +1,26 @@
 This is a repository to run brat using a docker image based on httpd:2.4.
 
+## Arranging brat files
+
+Arrange txt files, ann files, annotation.conf, and visual.conf in `data` directory.
+
 ## Setup
 
 ### On a local environment
 
-1. Run the brat container. If there is not the image, it is built at the beginning. In this process, account information in `docker-compose.yml` is used.
+1. Install and start docker.
+
+2. Run the brat container. If there is not the image, it is built at the beginning. In this process, account information in `docker-compose.yml` is used.
 ```
 docker-compose up -d
 ```
 
-2. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
+3. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
 ```
-docker exec brat bash -c "chgrp -R daemon data && chmod -R g+rwx data"
+docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
 
-3. Access `http://localhost/brat`.
+4. Access `http://localhost/brat`.
 
 ### On an EC2 instance
 
@@ -25,7 +31,7 @@ bash install_docker.sh
 
 2. Modify username, password, and email on `docker-compose.yml`. They will be used for the master account that is available on every site.
 
-3. Add `users.json` in `config` directory to specify additional users. An example of users.json:
+3. (Optional) To add accounts, add `users.json` as below in `config` directory. This setting creates an account of "user_1" and "password_1" for `http://<ip address>/brat`.
 ```
 {
   "": {
@@ -33,9 +39,6 @@ bash install_docker.sh
   }
 }
 ```
-This setting creates an account of "user_1" and "password_1" for `http://<ip address>/brat`
-
-- an account of "user_2" and "password_2" for `http://<ip address>/brat-site_suffix`
 
 4. Run the brat container.
 ```
@@ -44,7 +47,7 @@ sudo docker compose up -d
 
 5. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
 ```
-sudo docker exec brat bash -c "chgrp -R daemon data && chmod -R g+rwx data"
+sudo docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
 
 6. Access `http://<ip address>/brat`.
@@ -58,7 +61,7 @@ You can run additional brat sites (applications) on a single server. An addition
 RUN sh ./add_site.sh <suffix>
 ```
 
-2. To add accounts, add key-value pairs as below on `config/users.json`.
+2. (Optional) To add accounts, add key-value pairs as below on `config/users.json`.
 ```
   "<suffix>": {
     "user_2": "password_2"
@@ -81,7 +84,7 @@ sudo docker compose up -d --build
 
 6. Enable each brat app to modify ann files in each directory.
 ```
-sudo docker exec brat bash -c "chgrp -R daemon brat-<suffix>/data && chmod -R g+rwx brat-<suffix>/data"
+sudo docker exec brat bash -c "chgrp -R www-data brat-${suffix}/data && chmod -R g+rwx brat-${suffix}/data"
 ```
 
 ## Other Docker operations
