@@ -15,7 +15,7 @@ Arrange txt files, ann files, annotation.conf, and visual.conf in `data` directo
 docker-compose up -d
 ```
 
-3. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
+3. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host machine by docker compose.
 ```
 docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
@@ -24,7 +24,7 @@ docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/dat
 
 ### On an EC2 instance
 
-1. Install docker.
+1. Install and start docker.
 ```
 bash install_docker.sh
 ```
@@ -45,7 +45,7 @@ bash install_docker.sh
 sudo docker compose up -d
 ```
 
-5. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
+5. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host machine by docker compose.
 ```
 sudo docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
@@ -54,11 +54,11 @@ sudo docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx bra
 
 ### To run additional sites
 
-You can run additional brat sites (applications) on a single server. An additional site will have the URL `http://<ip address>/brat-<suffix>` after you follow the below steps.
+You can run additional brat sites (applications) on a single server by below steps. An additional site will have the URL `http://<ip address>/brat-<suffix>`. The suffix can be any string.
 
 1. Add lines as below on Dockerfile providing suffixes of the sites.
 ```
-RUN sh ./add_site.sh <suffix>
+RUN sh ./add_site.sh ${suffix}
 ```
 
 2. (Optional) To add accounts, add key-value pairs as below on `config/users.json`.
