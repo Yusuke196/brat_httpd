@@ -1,30 +1,33 @@
-This is a repository to run brat using a docker image based on httpd:2.4.
+This is a repository to run brat using a docker image based on httpd:2.4. Using this repository, you can:
 
-## Arranging brat files
+- run multiple brat sites on a single server
+- easily create accounts of annotators for each site
 
-Arrange txt files, ann files, annotation.conf, and visual.conf in `data` directory.
+## How to use
 
-## Setup
+1. Clone this repository.
 
-### On a local environment
+2. Arrange txt files, ann files, annotation.conf, and visual.conf in `data` directory.
+
+### Set up brat on a local environment
 
 1. Install and start docker.
 
-2. Run the brat container. If there is not the image, it is built at the beginning. In this process, account information in `docker-compose.yml` is used.
+2. Run the brat container. If there is not the docker image yet, it is built at this moment. In this process, account information on `docker-compose.yml` is used.
 ```
 docker-compose up -d
 ```
 
-3. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
+3. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host machine by docker compose.
 ```
 docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
 
 4. Access `http://localhost/brat`.
 
-### On an EC2 instance
+### Set up brat on a cloud service such as Amazon EC2
 
-1. Install docker.
+1. Install and start docker.
 ```
 bash install_docker.sh
 ```
@@ -45,7 +48,7 @@ bash install_docker.sh
 sudo docker compose up -d
 ```
 
-5. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host.
+5. To enable brat app to modify ann files, change permission of `data` directory in the container. This directory is mounted from the host machine by docker compose.
 ```
 sudo docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx brat/data"
 ```
@@ -54,11 +57,11 @@ sudo docker exec brat bash -c "chgrp -R www-data brat/data && chmod -R g+rwx bra
 
 ### To run additional sites
 
-You can run additional brat sites (applications) on a single server. An additional site will have the URL `http://<ip address>/brat-<suffix>` after you follow the below steps.
+You can run additional brat sites (applications) on a single server by below steps. An additional site will have the URL `http://<ip address>/brat-<suffix>`. The suffix can be any string.
 
 1. Add lines as below on Dockerfile providing suffixes of the sites.
 ```
-RUN sh ./add_site.sh <suffix>
+RUN sh ./add_site.sh ${suffix}
 ```
 
 2. (Optional) To add accounts, add key-value pairs as below on `config/users.json`.
@@ -68,7 +71,7 @@ RUN sh ./add_site.sh <suffix>
   }
 ```
 
-3. Duplicate `data` directory with the name of `data-<suffix>`.
+3. Duplicate `data` directory with the name of `data-<suffix>`. Arrange txt files, ann files, annotation.conf, and visual.conf in the new directory.
 
 4. Add items to the list of volumes on `docker-compose.yml`.
 ```
@@ -87,7 +90,7 @@ sudo docker compose up -d --build
 sudo docker exec brat bash -c "chgrp -R www-data brat-${suffix}/data && chmod -R g+rwx brat-${suffix}/data"
 ```
 
-## Other Docker operations
+### Other Docker operations
 
 Check if containers are running
 ```
@@ -103,3 +106,7 @@ Stop the brat container
 ```
 docker stop brat
 ```
+
+## Brat tips
+
+To speed up by skipping insignificant operations, change the setting. Hover on the top-right logo, proceed to Options, and change Annotation mode to "Normal".
